@@ -6,27 +6,25 @@
 
 :root {
   --neon: #CCFF00;
-  --void: #000000;
-  --surface: #0d0d0d;
-  --card: #141414;
-  --border: #222222;
-  --muted: #888888;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { height: 100%; }
+
 body {
   background: #000;
   color: #fff;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #000; }
 ::-webkit-scrollbar-thumb { background: #CCFF00; border-radius: 2px; }
 
-.neon-glow { box-shadow: 0 0 10px #CCFF00, 0 0 20px rgba(204,255,0,0.3); }
-.neon-text { text-shadow: 0 0 10px #CCFF00; }
-.card-dark { background: #141414; border: 1px solid #222; border-radius: 12px; }
-.card-dark:hover { border-color: rgba(204,255,0,0.3); transition: border-color 0.2s; }
+/* PWA safe areas */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-top { padding-top: env(safe-area-inset-top); }
