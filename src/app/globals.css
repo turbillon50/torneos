@@ -6,6 +6,22 @@
 
 :root {
   --neon: #CCFF00;
+  --void: #000000;
+  --txt: #ffffff;
+
+  /* Escala de espaciado */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+
+  /* Tokens de animación */
+  --anim: 0.2s;
+  --anim-fast: 0.14s;
+  --anim-slow: 0.4s;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
