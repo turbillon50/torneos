@@ -1,19 +1,22 @@
 import { NextResponse } from 'next/server'
 import sql from '@/lib/db'
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
+    const { id } = await params
     const b = await req.json()
     const rows = await sql`
       UPDATE matches SET
         home_score = ${b.home_score ?? null},
         away_score = ${b.away_score ?? null},
         status = ${b.status || 'finished'}
-      WHERE id = ${params.id}
+      WHERE id = ${id}
       RETURNING *`
-    // Recalcular tabla si el partido terminó
     if (b.status === 'finished') {
-      await recalcStandings(params.id)
+      await recalcStandings(id)
     }
     return NextResponse.json(rows[0])
   } catch (e: any) {
@@ -30,7 +33,6 @@ async function recalcStandings(matchId: string) {
   const awayWon = m.away_score > m.home_score
   const draw = m.home_score === m.away_score
 
-  // Upsert home team
   await sql`
     INSERT INTO standings (tournament_id, team_id, played, won, drawn, lost, goals_for, goals_against, goal_difference, points)
     VALUES (${m.tournament_id}, ${m.home_team_id}, 1,
@@ -48,7 +50,6 @@ async function recalcStandings(matchId: string) {
       points = standings.points + ${homeWon ? 3 : draw ? 1 : 0},
       updated_at = now()`
 
-  // Upsert away team
   await sql`
     INSERT INTO standings (tournament_id, team_id, played, won, drawn, lost, goals_for, goals_against, goal_difference, points)
     VALUES (${m.tournament_id}, ${m.away_team_id}, 1,
