@@ -2,8 +2,14 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import type { Notification, Tournament } from '@/types'
+import { IconBell, IconWarning, IconBall, IconCalendar } from '@/components/Icons'
 
-const typeEmoji: Record<string, string> = { info: 'ℹ️', warning: '⚠️', result: '⚽', schedule: '📅' }
+const TypeIcon = ({ type, size = 18 }: { type: string; size?: number }) => {
+  if (type === 'warning') return <IconWarning size={size} />
+  if (type === 'result') return <IconBall size={size} />
+  if (type === 'schedule') return <IconCalendar size={size} />
+  return <IconBell size={size} />
+}
 
 export default function AdminNotificacionesPage() {
   const [notifications, setNotifications] = useState<Notification[]>([])
@@ -42,7 +48,7 @@ export default function AdminNotificacionesPage() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 26, fontWeight: 900 }}>🔔 Notificaciones</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 900, display: 'flex', alignItems: 'center', gap: 8 }}><IconBell size={24} /> Notificaciones</h1>
           <div style={{ color: '#888', fontSize: 13 }}>Avisos a jugadores y capitanes</div>
         </div>
         <motion.button whileTap={{ scale: 0.95 }} onClick={() => setShowForm(!showForm)} style={{
@@ -61,10 +67,10 @@ export default function AdminNotificacionesPage() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               <select value={form.type} onChange={e => setForm(p => ({...p, type: e.target.value}))}
                 style={{ background: '#0d0d0d', border: '1px solid #333', borderRadius: 8, padding: '10px', color: '#fff', fontSize: 13, outline: 'none' }}>
-                <option value="info">ℹ️ Información</option>
-                <option value="warning">⚠️ Advertencia</option>
-                <option value="result">⚽ Resultado</option>
-                <option value="schedule">📅 Horario</option>
+                <option value="info">Información</option>
+                <option value="warning">Advertencia</option>
+                <option value="result">Resultado</option>
+                <option value="schedule">Horario</option>
               </select>
               <select value={form.target} onChange={e => setForm(p => ({...p, target: e.target.value}))}
                 style={{ background: '#0d0d0d', border: '1px solid #333', borderRadius: 8, padding: '10px', color: '#fff', fontSize: 13, outline: 'none' }}>
@@ -85,7 +91,7 @@ export default function AdminNotificacionesPage() {
       {loading ? <div style={{ color: '#555', padding: 40, textAlign: 'center' }}>Cargando...</div>
       : notifications.length === 0 ? (
         <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>🔔</div>
+          <div style={{ fontSize: 40, marginBottom: 12, display: 'flex', justifyContent: 'center' }}><IconBell size={40} /></div>
           <div>No hay avisos enviados</div>
         </div>
       ) : (
@@ -94,7 +100,7 @@ export default function AdminNotificacionesPage() {
             <motion.div key={n.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               style={{ background: '#141414', border: '1px solid #1e1e1e', borderRadius: 12, padding: '14px 16px' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                <span style={{ fontSize: 20 }}>{typeEmoji[n.type] || 'ℹ️'}</span>
+                <span style={{ display: 'flex', alignItems: 'center' }}><TypeIcon type={n.type} size={20} /></span>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{n.title}</div>
                   <div style={{ fontSize: 13, color: '#aaa', lineHeight: 1.5 }}>{n.body}</div>

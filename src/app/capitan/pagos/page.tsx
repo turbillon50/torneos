@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { IconWallet, IconWarning } from '@/components/Icons'
 
 const typeLabel: Record<string,string> = { inscription:'Inscripción', arbitration:'Arbitraje', penalty:'Multa' }
 const statusStyle: Record<string,{color:string;bg:string;label:string}> = {
@@ -32,7 +33,10 @@ export default function PagosCapitanPage() {
   return (
     <div>
       <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} style={{ marginBottom:20 }}>
-        <h1 style={{ fontSize:24, fontWeight:900 }}>💳 Pagos</h1>
+        <h1 style={{ fontSize:24, fontWeight:900, display:'inline-flex', alignItems:'center', gap:8 }}>
+          <IconWallet size={22} />
+          Pagos
+        </h1>
         {teams.length > 0 && (
           <select value={teamId} onChange={e => setTeamId(e.target.value)}
             style={{ marginTop:6, background:'#141414', border:'1px solid #333', borderRadius:6, padding:'4px 8px', color:'#fff', fontSize:13 }}>
@@ -44,7 +48,10 @@ export default function PagosCapitanPage() {
       {totalPending > 0 && (
         <div style={{ background:'rgba(255,170,0,0.1)', border:'1px solid rgba(255,170,0,0.3)', borderRadius:12, padding:'16px', marginBottom:20, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
           <div>
-            <div style={{ fontWeight:700, color:'#FFAA00' }}>⚠️ Saldo pendiente</div>
+            <div style={{ fontWeight:700, color:'#FFAA00', display:'inline-flex', alignItems:'center', gap:6 }}>
+              <IconWarning size={16} />
+              Saldo pendiente
+            </div>
             <div style={{ fontSize:13, color:'#888', marginTop:2 }}>Contacta al administrador</div>
           </div>
           <div style={{ fontSize:24, fontWeight:900, color:'#FFAA00' }}>${totalPending.toLocaleString('es-MX')}</div>
@@ -53,7 +60,9 @@ export default function PagosCapitanPage() {
 
       {payments.length === 0 ? (
         <div style={{ textAlign:'center', padding:60, color:'#555' }}>
-          <div style={{ fontSize:40, marginBottom:12 }}>💳</div>
+          <div style={{ marginBottom:12, display:'flex', justifyContent:'center' }}>
+            <IconWallet size={40} />
+          </div>
           <div>Sin pagos registrados aún</div>
         </div>
       ) : payments.map((p: any) => {

@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 
-const HERO_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3DDb66hXpSaWG4DmoX3Ae5V2dqt/hf_20260615_035205_4b479300-4fe1-4138-9f25-2b455f48499e.png"
-const PLAYER_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3DDb66hXpSaWG4DmoX3Ae5V2dqt/hf_20260615_035327_761cb9f8-edc9-4310-b9ae-a3042b04fcf6.png"
-const TROPHY_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3DDb66hXpSaWG4DmoX3Ae5V2dqt/hf_20260615_035329_95f00f96-7daf-46e6-8b1e-1c0b85ec4ad0.png"
+const HERO_IMG = "/images/hero.png"
+const PLAYER_IMG = "/images/player.png"
+const TROPHY_IMG = "/images/trophy.png"
 
 const IconTable = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">

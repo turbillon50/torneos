@@ -2,6 +2,12 @@ import { neon, NeonQueryFunction } from '@neondatabase/serverless'
 
 let _sql: NeonQueryFunction<false, false> | null = null
 
+// true solo cuando hay una conexión Neon real configurada
+export function hasDb(): boolean {
+  const url = process.env.DATABASE_URL
+  return !!url && !url.includes('placeholder')
+}
+
 function getSql(): NeonQueryFunction<false, false> {
   if (!_sql) {
     const url = process.env.DATABASE_URL

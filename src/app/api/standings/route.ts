@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server'
-import sql from '@/lib/db'
+import sql, { hasDb } from '@/lib/db'
+import { getStandings } from '@/lib/mock'
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const tid = searchParams.get('tournament_id')
+    if (!hasDb()) return NextResponse.json(getStandings(tid))
     const rows = tid
       ? await sql`
           SELECT s.*, t.name as team_name, t.shield_url as team_shield

@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
-import sql from '@/lib/db'
+import sql, { hasDb } from '@/lib/db'
+import { getReferees } from '@/lib/mock'
 
 export async function GET() {
   try {
+    if (!hasDb()) return NextResponse.json(getReferees())
     const rows = await sql`SELECT * FROM referees ORDER BY name ASC`
     return NextResponse.json(rows)
   } catch (e: any) {

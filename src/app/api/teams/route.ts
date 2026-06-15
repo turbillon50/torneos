@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server'
-import sql from '@/lib/db'
+import sql, { hasDb } from '@/lib/db'
+import { getTeams } from '@/lib/mock'
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const tid = searchParams.get('tournament_id')
+    if (!hasDb()) return NextResponse.json(getTeams(tid))
     const rows = tid
       ? await sql`SELECT * FROM teams WHERE tournament_id = ${tid} ORDER BY name`
       : await sql`SELECT * FROM teams ORDER BY name`

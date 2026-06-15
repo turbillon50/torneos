@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { IcoPlayer, IcoPlus } from '@/components/admin/AdminIcons'
+import { IconCardYellow, IconCardRed } from '@/components/Icons'
 
 const POSITIONS = ['Portero','Def. Central','Lateral Der.','Lateral Izq.','Mediocampista','Extremo','Delantero']
 
@@ -119,8 +120,8 @@ export default function AdminJugadoresPage() {
             </div>
           </div>
           <div style={{ display:'flex', gap:6, flexShrink:0 }}>
-            {p.yellow_cards>0 && <div style={{ fontSize:10, fontWeight:700, padding:'2px 7px', borderRadius:999, background:'rgba(255,215,0,0.12)', color:'#FFD700' }}>🟡 {p.yellow_cards}</div>}
-            {p.red_cards>0 && <div style={{ fontSize:10, fontWeight:700, padding:'2px 7px', borderRadius:999, background:'rgba(255,68,68,0.12)', color:'#FF4444' }}>🔴 {p.red_cards}</div>}
+            {p.yellow_cards>0 && <div style={{ fontSize:10, fontWeight:700, padding:'2px 7px', borderRadius:999, background:'rgba(255,215,0,0.12)', color:'#FFD700', display:'inline-flex', alignItems:'center', gap:4 }}><IconCardYellow size={11} /> {p.yellow_cards}</div>}
+            {p.red_cards>0 && <div style={{ fontSize:10, fontWeight:700, padding:'2px 7px', borderRadius:999, background:'rgba(255,68,68,0.12)', color:'#FF4444', display:'inline-flex', alignItems:'center', gap:4 }}><IconCardRed size={11} /> {p.red_cards}</div>}
             {p.goals>0 && <div style={{ fontSize:10, fontWeight:700, padding:'2px 7px', borderRadius:999, background:'rgba(204,255,0,0.08)', color:'#CCFF00' }}>{p.goals} gol{p.goals>1?'es':''}</div>}
             {p.status==='suspended' && <div style={{ fontSize:9, fontWeight:700, padding:'2px 7px', borderRadius:999, background:'rgba(255,68,68,0.15)', color:'#FF4444', letterSpacing:0.3 }}>SUSP.</div>}
           </div>

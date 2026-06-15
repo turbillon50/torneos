@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import type { Team, Tournament } from '@/types'
+import { IconUsers, IconBall, IconUser, IconPhone } from '@/components/Icons'
 
 export default function AdminEquiposPage() {
   const [teams, setTeams] = useState<Team[]>([])
@@ -41,7 +42,7 @@ export default function AdminEquiposPage() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 26, fontWeight: 900 }}>👥 Equipos</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 900, display: 'flex', alignItems: 'center', gap: 8 }}><IconUsers size={24} /> Equipos</h1>
           <div style={{ color: '#888', fontSize: 13 }}>{teams.length} equipos registrados</div>
         </div>
         <motion.button whileTap={{ scale: 0.95 }} onClick={() => setShowForm(!showForm)} style={{
@@ -87,10 +88,10 @@ export default function AdminEquiposPage() {
               background: '#141414', border: '1px solid #1e1e1e', borderRadius: 12, padding: 16
             }}>
               <div style={{ width: 48, height: 48, background: '#222', borderRadius: 10,
-                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, marginBottom: 12 }}>⚽</div>
+                display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12, color: '#fff' }}><IconBall size={24} /></div>
               <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{t.name}</div>
-              {t.captain_name && <div style={{ fontSize: 12, color: '#888' }}>👤 {t.captain_name}</div>}
-              {t.contact_phone && <div style={{ fontSize: 12, color: '#888' }}>📞 {t.contact_phone}</div>}
+              {t.captain_name && <div style={{ fontSize: 12, color: '#888', display: 'inline-flex', alignItems: 'center', gap: 4 }}><IconUser size={12} /> {t.captain_name}</div>}
+              {t.contact_phone && <div style={{ fontSize: 12, color: '#888', display: 'inline-flex', alignItems: 'center', gap: 4 }}><IconPhone size={12} /> {t.contact_phone}</div>}
               <div style={{
                 marginTop: 10, fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 999, display: 'inline-block',
                 color: t.status === 'active' ? '#000' : '#888',

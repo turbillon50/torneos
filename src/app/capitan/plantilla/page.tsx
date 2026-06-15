@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { IconJersey, IconCardYellow, IconCardRed, IconBall } from '@/components/Icons'
 
 export default function PlantillaPage() {
   const [players, setPlayers] = useState<any[]>([])
@@ -45,7 +46,10 @@ export default function PlantillaPage() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 900 }}>👕 Plantilla</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 900, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            <IconJersey size={22} />
+            Plantilla
+          </h1>
           {teams.length > 0 && (
             <select value={teamId} onChange={e => setTeamId(e.target.value)}
               style={{ marginTop: 6, background: '#141414', border: '1px solid #333', borderRadius: 6, padding: '4px 8px', color: '#fff', fontSize: 13 }}>
@@ -86,7 +90,9 @@ export default function PlantillaPage() {
 
       {players.length === 0 ? (
         <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>👕</div>
+          <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'center' }}>
+            <IconJersey size={40} />
+          </div>
           <div>Sin jugadores aún. Conecta la base de datos para agregar.</div>
         </div>
       ) : (
@@ -102,9 +108,24 @@ export default function PlantillaPage() {
                 {p.position && <div style={{ fontSize: 11, color: '#888' }}>{p.position}</div>}
               </div>
               <div style={{ display: 'flex', gap: 8, fontSize: 12 }}>
-                {p.yellow_cards > 0 && <span style={{ background: 'rgba(255,215,0,0.15)', color: '#FFD700', padding: '2px 8px', borderRadius: 999 }}>🟨 {p.yellow_cards}</span>}
-                {p.red_cards > 0 && <span style={{ background: 'rgba(255,0,0,0.15)', color: '#FF4444', padding: '2px 8px', borderRadius: 999 }}>🟥 {p.red_cards}</span>}
-                {p.goals > 0 && <span style={{ background: 'rgba(204,255,0,0.1)', color: '#CCFF00', padding: '2px 8px', borderRadius: 999 }}>⚽ {p.goals}</span>}
+                {p.yellow_cards > 0 && (
+                  <span style={{ background: 'rgba(255,215,0,0.15)', color: '#FFD700', padding: '2px 8px', borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <IconCardYellow size={13} />
+                    {p.yellow_cards}
+                  </span>
+                )}
+                {p.red_cards > 0 && (
+                  <span style={{ background: 'rgba(255,0,0,0.15)', color: '#FF4444', padding: '2px 8px', borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <IconCardRed size={13} />
+                    {p.red_cards}
+                  </span>
+                )}
+                {p.goals > 0 && (
+                  <span style={{ background: 'rgba(204,255,0,0.1)', color: '#CCFF00', padding: '2px 8px', borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <IconBall size={13} />
+                    {p.goals}
+                  </span>
+                )}
               </div>
             </motion.div>
           ))}

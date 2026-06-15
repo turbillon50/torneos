@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
-import sql from '@/lib/db'
+import sql, { hasDb } from '@/lib/db'
+import { getCards } from '@/lib/mock'
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const playerId = searchParams.get('player_id')
     const teamId = searchParams.get('team_id')
+    if (!hasDb()) return NextResponse.json(getCards({ playerId, teamId }))
     let rows
     if (playerId) {
       rows = await sql`SELECT c.*, p.name as player_name, t.name as team_name FROM cards c LEFT JOIN players p ON c.player_id = p.id LEFT JOIN teams t ON c.team_id = t.id WHERE c.player_id = ${playerId} ORDER BY c.created_at DESC`

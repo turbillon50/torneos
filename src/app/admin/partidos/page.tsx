@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { IcoPlus, IcoCheck } from '@/components/admin/AdminIcons'
+import { IconX } from '@/components/Icons'
 
 const STATUS_LABEL: Record<string,string> = { scheduled:'Pendiente', live:'En Vivo', finished:'Final', postponed:'Pospuesto' }
 const STATUS_COLOR: Record<string,string> = { scheduled:'rgba(255,255,255,0.2)', live:'#CCFF00', finished:'rgba(255,255,255,0.15)', postponed:'#FFAA00' }
@@ -120,7 +121,7 @@ export default function AdminPartidosPage() {
                   style={{ flex:1, padding:'12px', background:score.home!==''&&score.away!==''?'#CCFF00':'#1a1a1a', color:score.home!==''&&score.away!==''?'#000':'#555', border:'none', borderRadius:10, fontWeight:700, fontSize:14, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:6 }}>
                   <IcoCheck /> {saving?'Guardando…':'Guardar'}
                 </motion.button>
-                <button onClick={()=>setEditMatch(null)} style={{ padding:'12px 16px', background:'transparent', border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, color:'rgba(255,255,255,0.4)', cursor:'pointer', fontSize:13 }}>✕</button>
+                <button onClick={()=>setEditMatch(null)} style={{ padding:'12px 16px', background:'transparent', border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, color:'rgba(255,255,255,0.4)', cursor:'pointer', fontSize:13, display:'flex', alignItems:'center', justifyContent:'center' }}><IconX size={16} /></button>
               </div>
             </motion.div>
           </motion.div>

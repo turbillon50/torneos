@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import type { Team, Tournament } from '@/types'
+import { IconUsers, IconStadium, IconBall } from '@/components/Icons'
 
 export default function EquiposPage() {
   const [teams, setTeams] = useState<Team[]>([])
@@ -27,7 +28,7 @@ export default function EquiposPage() {
   return (
     <div>
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 900, marginBottom: 4 }}>👥 Equipos</h1>
+        <h1 style={{ fontSize: 28, fontWeight: 900, marginBottom: 4, display: 'inline-flex', alignItems: 'center', gap: 10 }}><IconUsers size={24} />Equipos</h1>
         <p style={{ color: '#888', fontSize: 14, marginBottom: 20 }}>Equipos participantes</p>
       </motion.div>
 
@@ -51,7 +52,7 @@ export default function EquiposPage() {
         </div>
       ) : teams.length === 0 ? (
         <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>🏟️</div>
+          <div style={{ marginBottom: 12 }}><IconStadium size={40} /></div>
           <div>No hay equipos registrados</div>
         </div>
       ) : (
@@ -68,7 +69,7 @@ export default function EquiposPage() {
                 <img src={t.shield_url} alt={t.name} style={{ width: 56, height: 56, borderRadius: 8, objectFit: 'cover', marginBottom: 10 }} />
               ) : (
                 <div style={{ width: 56, height: 56, background: '#222', borderRadius: 8, margin: '0 auto 10px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>⚽</div>
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666' }}><IconBall size={24} /></div>
               )}
               <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{t.name}</div>
               <div style={{

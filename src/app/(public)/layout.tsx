@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { IconUser } from '@/components/Icons'
 
 const IcoTable = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -32,12 +33,14 @@ const IcoHome = () => (
     <polyline points="9 22 9 12 15 12 15 22"/>
   </svg>
 )
+const IcoAccount = () => <IconUser size={22} />
 
 const tabs = [
   { href: '/', label: 'Inicio', Icon: IcoHome },
   { href: '/tabla', label: 'Tabla', Icon: IcoTable },
-  { href: '/calendario', label: 'Partidos', Icon: IcoCalendar },
   { href: '/equipos', label: 'Equipos', Icon: IcoTeams },
+  { href: '/calendario', label: 'Partidos', Icon: IcoCalendar },
+  { href: '/capitan', label: 'MiCuenta', Icon: IcoAccount },
 ]
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
@@ -77,7 +80,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         height: 'calc(56px + env(safe-area-inset-bottom))'
       }}>
         {tabs.map(({ href, label, Icon }) => {
-          const active = href === '/' ? pathname === '/' : pathname === href
+          const active = href === '/' ? pathname === '/' : pathname.startsWith(href)
           return (
             <Link key={href} href={href} style={{
               display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,

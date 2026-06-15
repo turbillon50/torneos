@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import type { Payment, Team } from '@/types'
+import { IconWallet, IconCheck } from '@/components/Icons'
 
 const typeLabel: Record<string, string> = { inscription: 'Inscripción', arbitration: 'Arbitraje', penalty: 'Multa' }
 const statusColor: Record<string, string> = { paid: '#CCFF00', pending: '#FFAA00', overdue: '#FF4444' }
@@ -44,7 +45,7 @@ export default function AdminPagosPage() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 26, fontWeight: 900 }}>💳 Pagos</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 900, display: 'flex', alignItems: 'center', gap: 8 }}><IconWallet size={24} /> Pagos</h1>
           <div style={{ color: '#888', fontSize: 13 }}>Control financiero de equipos</div>
         </div>
         <motion.button whileTap={{ scale: 0.95 }} onClick={() => setShowForm(!showForm)} style={{
@@ -112,7 +113,7 @@ export default function AdminPagosPage() {
           {p.status !== 'paid' && (
             <motion.button whileTap={{ scale: 0.95 }} onClick={() => markPaid(p.id)} style={{
               padding: '6px 10px', background: 'rgba(204,255,0,0.1)', border: '1px solid rgba(204,255,0,0.3)',
-              borderRadius: 6, color: '#CCFF00', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}>✓ Pagar</motion.button>
+              borderRadius: 6, color: '#CCFF00', fontSize: 11, fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}><IconCheck size={13} /> Pagar</motion.button>
           )}
         </motion.div>
       ))}

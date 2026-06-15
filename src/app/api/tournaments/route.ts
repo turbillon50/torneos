@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
-import sql from '@/lib/db'
+import sql, { hasDb } from '@/lib/db'
+import { getTournaments } from '@/lib/mock'
 
 export async function GET() {
   try {
+    if (!hasDb()) return NextResponse.json(getTournaments())
     const rows = await sql`SELECT * FROM tournaments ORDER BY created_at DESC`
     return NextResponse.json(rows)
   } catch (e: any) {

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import type { Match, Tournament } from '@/types'
+import { IconPin, IconClock, IconWhistle, IconCalendar, IconBall } from '@/components/Icons'
 
 function MatchCard({ m }: { m: Match }) {
   const isLive = m.status === 'live'
@@ -23,9 +24,9 @@ function MatchCard({ m }: { m: Match }) {
       )}
       <div style={{ fontSize: 11, color: '#555', marginBottom: 10, display: 'flex', gap: 12 }}>
         {m.matchday_number && <span>Jornada {m.matchday_number}</span>}
-        {m.field && <span>📍 {m.field}</span>}
-        {m.scheduled_at && <span>🕐 {new Date(m.scheduled_at).toLocaleString('es-MX', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</span>}
-        {m.referee_name && <span>🟨 {m.referee_name}</span>}
+        {m.field && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><IconPin size={12} />{m.field}</span>}
+        {m.scheduled_at && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><IconClock size={12} />{new Date(m.scheduled_at).toLocaleString('es-MX', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</span>}
+        {m.referee_name && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><IconWhistle size={12} />{m.referee_name}</span>}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 12, alignItems: 'center' }}>
         <div style={{ textAlign: 'right' }}>
@@ -78,7 +79,7 @@ export default function CalendarioPage() {
   return (
     <div>
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 900, marginBottom: 4 }}>📅 Calendario</h1>
+        <h1 style={{ fontSize: 28, fontWeight: 900, marginBottom: 4, display: 'inline-flex', alignItems: 'center', gap: 10 }}><IconCalendar size={24} />Calendario</h1>
         <p style={{ color: '#888', fontSize: 14, marginBottom: 20 }}>Partidos y resultados</p>
       </motion.div>
 
@@ -114,7 +115,7 @@ export default function CalendarioPage() {
         </div>
       ) : filtered.length === 0 ? (
         <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>⚽</div>
+          <div style={{ marginBottom: 12 }}><IconBall size={40} /></div>
           <div>No hay partidos en esta categoría</div>
         </div>
       ) : (

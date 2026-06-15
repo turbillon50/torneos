@@ -8,5 +8,11 @@ const nextConfig = {
       { protocol: 'https', hostname: '**' },
     ],
   },
+  async redirects() {
+    return [
+      { source: '/app/home', destination: '/', permanent: false },
+      { source: '/admin/dashboard', destination: '/admin', permanent: false },
+    ]
+  },
 }
 module.exports = nextConfig
