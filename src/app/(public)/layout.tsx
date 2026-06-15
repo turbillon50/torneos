@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useAuth, UserButton } from '@clerk/nextjs'
 
 const navItems = [
   { href: '/tabla', label: '🏆 Tabla' },
@@ -11,8 +10,6 @@ const navItems = [
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const { isSignedIn } = useAuth()
-
   return (
     <div style={{ minHeight: '100vh', background: '#000' }}>
       <nav style={{
@@ -36,14 +33,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             ))}
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            {isSignedIn ? (
-              <>
-                <Link href="/capitan" style={{ fontSize: 12, color: '#CCFF00', textDecoration: 'none', padding: '5px 10px', border: '1px solid rgba(204,255,0,0.3)', borderRadius: 6 }}>Mi Panel</Link>
-                <UserButton />
-              </>
-            ) : (
-              <Link href="/sign-in" style={{ fontSize: 13, color: '#888', textDecoration: 'none' }}>Entrar</Link>
-            )}
+            <Link href="/admin" style={{ fontSize: 12, color: '#CCFF00', textDecoration: 'none', padding: '5px 10px', border: '1px solid rgba(204,255,0,0.3)', borderRadius: 6 }}>Admin</Link>
           </div>
         </div>
       </nav>

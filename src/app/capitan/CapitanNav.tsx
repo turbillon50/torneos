@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { UserButton } from '@clerk/nextjs'
 
 const nav = [
   { href: '/capitan', label: '🏠 Inicio' },
@@ -31,7 +30,7 @@ export default function CapitanNav() {
             }}>{item.label}</Link>
           ))}
         </div>
-        <UserButton />
+        <Link href="/" style={{ fontSize: 11, color: '#555', textDecoration: 'none' }}>← Salir</Link>
       </div>
     </nav>
   )

@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { UserButton } from '@clerk/nextjs'
 
 const nav = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
@@ -30,7 +29,6 @@ export default function AdminNav() {
           <div style={{ fontSize: 10, color: '#555' }}>Admin Panel</div>
         </div>
       </div>
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
         {nav.map(item => {
           const active = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href))
@@ -47,10 +45,8 @@ export default function AdminNav() {
           )
         })}
       </div>
-
-      <div style={{ paddingTop: 16, borderTop: '1px solid #1a1a1a', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <UserButton />
-        <Link href="/" style={{ fontSize: 11, color: '#555', textDecoration: 'none' }}>← Sitio</Link>
+      <div style={{ paddingTop: 16, borderTop: '1px solid #1a1a1a' }}>
+        <Link href="/" style={{ fontSize: 12, color: '#555', textDecoration: 'none' }}>← Volver al sitio</Link>
       </div>
     </nav>
   )

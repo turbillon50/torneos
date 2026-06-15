@@ -1,10 +1,6 @@
-import { auth } from '@clerk/nextjs/server'
-import { redirect } from 'next/navigation'
 import CapitanNav from './CapitanNav'
 
-export default async function CapitanLayout({ children }: { children: React.ReactNode }) {
-  const { userId } = await auth()
-  if (!userId) redirect('/sign-in')
+export default function CapitanLayout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ minHeight: '100vh', background: '#000' }}>
       <CapitanNav />
