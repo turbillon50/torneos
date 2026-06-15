@@ -73,16 +73,17 @@ export default function TablaPage() {
       ) : (
         <>
           {/* Cols header */}
-          <div style={{
-            display: 'grid', gridTemplateColumns: '28px 1fr 36px 36px 36px 36px 40px 40px 48px',
-            gap: 2, padding: '6px 12px', marginBottom: 4
-          }}>
-            {['#','Equipo','PJ','G','E','P','GF','GD','PTS'].map((h, i) => (
-              <div key={h} style={{
+          <div className="tabla-grid" style={{ padding: '6px 12px', marginBottom: 4 }}>
+            {[
+              { h: '#' }, { h: 'Equipo' }, { h: 'PJ' },
+              { h: 'G', ext: true }, { h: 'E', ext: true }, { h: 'P', ext: true }, { h: 'GF', ext: true },
+              { h: 'GD' }, { h: 'PTS' },
+            ].map((c, i) => (
+              <div key={c.h} className={c.ext ? 'col-ext' : undefined} style={{
                 fontSize: 10, fontWeight: 700, color: '#444',
                 textTransform: 'uppercase', letterSpacing: 0.5,
                 textAlign: i > 1 ? 'center' : 'left'
-              }}>{h}</div>
+              }}>{c.h}</div>
             ))}
           </div>
 
@@ -93,10 +94,9 @@ export default function TablaPage() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.04 }}
+                className="tabla-grid"
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: '28px 1fr 36px 36px 36px 36px 40px 40px 48px',
-                  gap: 2, padding: '11px 12px', borderRadius: 10, alignItems: 'center',
+                  padding: '11px 12px', borderRadius: 10, alignItems: 'center',
                   background: i === 0 ? 'rgba(204,255,0,0.07)' : i < 3 ? 'rgba(204,255,0,0.03)' : '#0d0d0d',
                   border: `1px solid ${i === 0 ? 'rgba(204,255,0,0.2)' : 'rgba(255,255,255,0.04)'}`,
                 }}
@@ -118,8 +118,12 @@ export default function TablaPage() {
                   )}
                   <span style={{ fontWeight: 600, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.team_name}</span>
                 </div>
-                {[s.played, s.won, s.drawn, s.lost, s.goals_for, s.goal_difference].map((v, vi) => (
-                  <span key={vi} style={{ textAlign: 'center', fontSize: 13, color: '#666' }}>{v}</span>
+                {[
+                  { v: s.played },
+                  { v: s.won, ext: true }, { v: s.drawn, ext: true }, { v: s.lost, ext: true }, { v: s.goals_for, ext: true },
+                  { v: s.goal_difference },
+                ].map((c, vi) => (
+                  <span key={vi} className={c.ext ? 'col-ext' : undefined} style={{ textAlign: 'center', fontSize: 13, color: '#666' }}>{c.v}</span>
                 ))}
                 <span style={{
                   textAlign: 'center', fontWeight: 900, fontSize: 17,
@@ -130,7 +134,22 @@ export default function TablaPage() {
           </div>
         </>
       )}
-      <style>{`@keyframes skeleton { 0%,100%{opacity:0.4} 50%{opacity:0.8} }`}</style>
+      <style>{`
+        @keyframes skeleton { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
+        /* Tabla responsive: en móvil solo #, Equipo, PJ, GD, PTS */
+        .tabla-grid {
+          display: grid;
+          grid-template-columns: 22px minmax(0,1fr) 30px 42px 46px;
+          gap: 2px;
+        }
+        .col-ext { display: none; }
+        @media (min-width: 560px) {
+          .tabla-grid {
+            grid-template-columns: 28px minmax(0,1fr) 36px 36px 36px 36px 40px 44px 48px;
+          }
+          .col-ext { display: block; }
+        }
+      `}</style>
     </div>
   )
 }
