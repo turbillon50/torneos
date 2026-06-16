@@ -1,19 +1,23 @@
-const CACHE = 'torneos-s2-v1'
-const STATIC = ['/', '/tabla', '/calendario']
+const CACHE = 's2sport-v1'
+const STATIC = ['/', '/tabla', '/partidos', '/equipos']
 
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(STATIC)))
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE).then((c) => c.addAll(STATIC)).catch(() => {})
+  )
   self.skipWaiting()
 })
-self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(keys =>
-    Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-  ))
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+    )
+  )
   self.clients.claim()
 })
-self.addEventListener('fetch', e => {
+
+self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
-  )
+  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)))
 })

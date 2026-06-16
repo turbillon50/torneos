@@ -1,7 +1,7 @@
 {
-  "name": "Torneos S2 Sport",
-  "short_name": "S2 Torneos",
-  "description": "Plataforma de gestión de torneos de fútbol S2 Sport",
+  "name": "S2 SPORT · Liga S2",
+  "short_name": "S2 SPORT",
+  "description": "Tu liga en vivo: tabla, partidos, equipos y goleadores.",
   "start_url": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -10,12 +10,13 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "es",
+  "categories": ["sports"],
   "icons": [
     { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
     { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "shortcuts": [
     { "name": "Tabla", "url": "/tabla", "description": "Ver tabla de posiciones" },
-    { "name": "Partidos", "url": "/calendario", "description": "Ver calendario" }
+    { "name": "Partidos", "url": "/partidos", "description": "Ver calendario" }
   ]
 }

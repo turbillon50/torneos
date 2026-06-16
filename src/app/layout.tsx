@@ -1,45 +1,53 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Plus_Jakarta_Sans } from 'next/font/google'
+import { ClerkProvider } from '@clerk/nextjs'
+import { clerkEnabled } from '@/lib/auth'
+import SWRegister from '@/components/SWRegister'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  viewportFit: 'cover',
-  themeColor: '#000000',
-}
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-jakarta',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: 'Torneos S2 Sport',
-  description: 'Plataforma de gestión de torneos de fútbol',
+  title: 'S2 SPORT · Liga S2 Apertura 2026',
+  description: 'Tu liga en vivo: tabla, partidos, equipos y goleadores.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'S2 Torneos',
+    title: 'S2 SPORT',
+  },
+  icons: {
+    icon: '/icons/icon-192.png',
+    apple: '/icons/icon-192.png',
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="es">
-      <head>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            if ('serviceWorker' in navigator) {
-              navigator.serviceWorker.register('/sw.js')
-            }
-          `
-        }} />
-      </head>
-      <body className={inter.className}>{children}</body>
+export const viewport: Viewport = {
+  themeColor: '#000000',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const tree = (
+    <html lang="es" className={jakarta.variable}>
+      <body>
+        {children}
+        <SWRegister />
+      </body>
     </html>
   )
+
+  // Clerk solo cuando hay llaves reales — si no, modo demo limpio.
+  return clerkEnabled ? <ClerkProvider>{tree}</ClerkProvider> : tree
 }

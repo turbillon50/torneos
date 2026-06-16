@@ -1,7 +1,16 @@
-import AdminShell from '@/components/admin/AdminShell'
+import AuthGate from '@/components/AuthGate'
 
-export const metadata = { title: 'S2 Sport · Admin' }
-
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return <AdminShell>{children}</AdminShell>
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <AuthGate
+      title="Acceso Admin"
+      subtitle="Panel de operación de la Liga S2"
+    >
+      {children}
+    </AuthGate>
+  )
 }

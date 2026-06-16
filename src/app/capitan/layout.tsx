@@ -1,12 +1,20 @@
-import CapitanNav from './CapitanNav'
+import AuthGate from '@/components/AuthGate'
+import BottomNav from '@/components/BottomNav'
 
-export default function CapitanLayout({ children }: { children: React.ReactNode }) {
+export default function CapitanLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <div style={{ minHeight: '100vh', background: '#000' }}>
-      <CapitanNav />
-      <main style={{ maxWidth: 800, margin: '0 auto', padding: '24px 16px' }}>
-        {children}
-      </main>
-    </div>
+    <AuthGate
+      title="Acceso Capitán"
+      subtitle="Administra tu plantilla, pagos y sanciones"
+    >
+      <div style={{ minHeight: '100dvh' }}>
+        <main className="pb-safe">{children}</main>
+        <BottomNav />
+      </div>
+    </AuthGate>
   )
 }
